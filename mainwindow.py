@@ -7,7 +7,7 @@
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-import os
+
 import subprocess
 
 from PyQt5.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
@@ -137,9 +137,9 @@ class Ui_MainWindow(object):
 
     def checkConnected(self):
         
-
-                
-        output = os.popen("nfc-list").read()
+        output = subprocess.run("nfc-list", stdout=subprocess.PIPE)
+        output = output.stdout.decode('utf-8')  
+        
         self.step = 0
         self.progressBar.setValue(0)
         
@@ -175,8 +175,10 @@ class Ui_MainWindow(object):
 
 
     def dumpEmpty(self):
-        output = os.popen("mfoc -P 500 -O carte-vierge.dmp").read()
-        print(output)
+
+        output = subprocess.run(['mfoc' ,'-P 500', '-O carte-vierge.dmp'], stdout=subprocess.PIPE)
+        output = output.stdout.decode('utf-8')
+    
         
         if "ERROR" in output:
             self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -206,7 +208,9 @@ class Ui_MainWindow(object):
     
     def dumpTag(self):
         
-        output = os.popen("mfoc -P 500 -O carte-copie.dmp").read()
+        output = subprocess.run(['mfoc', '-P 500 ', '-O carte-copie.dmp'], stdout=subprocess.PIPE)
+        output = output.stdout.decode('utf-8')  
+
         print(output)
         if "ERROR" in output:
             self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -235,8 +239,9 @@ class Ui_MainWindow(object):
 
 
     def OtoN(self):
+        output = subprocess.run(['nfc-mfclassic', 'W', 'a', 'carte-originale.dmp', 'carte-copie.dmp'], stdout=subprocess.PIPE)
+        output = output.stdout.decode('utf-8')  
 
-        output = os.popen("nfc-mfclassic W a carte-originale.dmp carte-copie.dmp").read()
         print(output)
         if "ERROR: No tag found." in output:
             self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
