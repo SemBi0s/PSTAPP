@@ -40,7 +40,7 @@ class Ui_MainWindow(object):
         self.StartBtn.setObjectName(u"StartBtn")
         self.StartBtn.setGeometry(QRect(210, 50, 381, 291))
         self.StartBtn.setLayoutDirection(Qt.LeftToRight)
-        self.StartBtn.clicked.connect(self.Start)
+        self.StartBtn.clicked.connect(self.Startfunc)
       
         self.ConnectedText = QTextBrowser(self.centralwidget)
         self.ConnectedText.setObjectName(u"ConnectedText")
@@ -122,19 +122,22 @@ class Ui_MainWindow(object):
                         "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">To start click on start !</span></p></body></html>", None))
     # retranslateUi
 
-    def Start(self):
+    def Startfunc(self):
+        print(self.step)
         if self.step == 0:
             self.Start()
         elif self.step == 1:
             self.dumpEmpty()
         elif self.step == 2:
-            self.dumpTag
+            self.dumpTag()
         elif self.step == 3:
             self.OtoN()
         
 
 
     def checkConnected(self):
+        
+
                 
         output = os.popen("nfc-list").read()
         self.step = 0
@@ -174,7 +177,7 @@ class Ui_MainWindow(object):
         output = os.popen("mfoc -P 500 -O carte-vierge.dmp").read()
         print(output)
         
-        if "ERROR: No tag found." in output:
+        if "No tag found." in output:
             self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -204,7 +207,7 @@ class Ui_MainWindow(object):
         
         output = os.popen("mfoc -P 500 -O carte-copie.dmp").read()
         print(output)
-        if "ERROR: No tag found." in output:
+        if "No tag found." in output:
             self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
