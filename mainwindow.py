@@ -10,14 +10,14 @@
 import os
 import subprocess
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+from PyQt5.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+from PyQt5.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QMainWindow, QProgressBar, QPushButton,
+from PyQt5.QtWidgets import (QApplication, QMainWindow, QProgressBar, QPushButton,
     QSizePolicy, QTextBrowser, QWidget)
 
 class Ui_MainWindow(object):
@@ -25,9 +25,9 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(800, 600)
-        MainWindow.setMinimumSize(QSize(800, 600))
-        MainWindow.setMaximumSize(QSize(800, 600))
+        MainWindow.resize(800, 480)
+        MainWindow.setMinimumSize(QSize(800, 480))
+        MainWindow.setMaximumSize(QSize(800, 480))
 
 
         self.centralwidget = QWidget(MainWindow)
@@ -39,21 +39,21 @@ class Ui_MainWindow(object):
         self.ConnectedText = QTextBrowser(self.centralwidget)
         self.ConnectedText.setObjectName(u"ConnectedText")
         self.ConnectedText.setEnabled(False)
-        self.ConnectedText.setGeometry(QRect(550, 530, 241, 61))
+        self.ConnectedText.setGeometry(QRect(540, 410, 241, 61))
         self.ConnectedText.setMouseTracking(False)
         self.ConnectedText.setLayoutDirection(Qt.LeftToRight)
         self.ConnectedText.setAutoFillBackground(True)
         self.DisconnectedText = QTextBrowser(self.centralwidget)
         self.DisconnectedText.setObjectName(u"DisconnectedText")
         self.DisconnectedText.setEnabled(False)
-        self.DisconnectedText.setGeometry(QRect(10, 530, 321, 61))
+        self.DisconnectedText.setGeometry(QRect(10, 410, 321, 61))
         self.DisconnectedText.setMouseTracking(False)
         self.DisconnectedText.setLayoutDirection(Qt.LeftToRight)
         self.DisconnectedText.setAutoFillBackground(True)
         self.progressBar = QProgressBar(self.centralwidget)
         self.progressBar.setObjectName(u"progressBar")
         self.progressBar.setGeometry(QRect(160, 370, 461, 21))
-        self.progressBar.setMaximumSize(QSize(800, 600))
+        self.progressBar.setMaximumSize(QSize(800, 480))
         self.progressBar.setLayoutDirection(Qt.LeftToRight)
         self.progressBar.setValue(0)
         self.CloseBtn = QPushButton(self.centralwidget)

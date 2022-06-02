@@ -1,7 +1,7 @@
 from mainwindow import Ui_MainWindow
-from PySide6.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox
 
-from PyQt6.uic import loadUi
+from PyQt5.uic import loadUi
 import sys
 
 
