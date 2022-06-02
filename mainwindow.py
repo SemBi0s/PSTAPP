@@ -247,7 +247,7 @@ class Ui_MainWindow(object):
     def OtoN(self):
         self.StartBtn.setEnabled(False)
 
-        output = subprocess.run(['nfc-mfclassic', 'W', 'a', '~/PSTAPP/carte-originale.dmp', '~/PSTAPP/carte-copie.dmp'], stdout=subprocess.PIPE)
+        output = subprocess.run(['sudo','nfc-mfclassic', 'W', 'a','/home/kali/PSTAPP/ carte-vierge.dmp', '/home/kali/PSTAPP/ carte-copie.dmp'], stdout=subprocess.PIPE)
         output = output.stdout.decode('utf-8')  
 
         print(output)
