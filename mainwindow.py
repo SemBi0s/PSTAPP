@@ -175,12 +175,12 @@ class Ui_MainWindow(object):
 
 
     def dumpEmpty(self):
-
+        self.StartBtn.setEnabled(False)
         output = subprocess.run(['mfoc' ,'-P 500', '-O carte-vierge.dmp'], stdout=subprocess.PIPE)
         output = output.stdout.decode('utf-8')
     
         
-        if "ERROR" in output:
+        if "ERROR" in output or output == "":
             self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -191,6 +191,7 @@ class Ui_MainWindow(object):
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
 "<p align=\"center\" style"
                         "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">Error replace the New Tag to copy the uid and click continue</span></p></body></html>", None))
+            self.StartBtn.setEnabled(True)
         else :
             self.progressBar.setValue(45)
             self.step = 2
@@ -204,15 +205,15 @@ class Ui_MainWindow(object):
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
 "<p align=\"center\" style"
                         "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">Place the Old Tag to copy the content and click continue</span></p></body></html>", None))
-
+            self.StartBtn.setEnabled(True)
     
     def dumpTag(self):
-        
+        self.StartBtn.setEnabled(False)
         output = subprocess.run(['mfoc', '-P 500 ', '-O carte-copie.dmp'], stdout=subprocess.PIPE)
         output = output.stdout.decode('utf-8')  
 
         print(output)
-        if "ERROR" in output:
+        if "ERROR" in output or output == "":
             self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -223,6 +224,7 @@ class Ui_MainWindow(object):
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
 "<p align=\"center\" style"
                         "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">Error replace the Tag to copy the content and click continue</span></p></body></html>", None))
+            self.StartBtn.setEnabled(True)
         else :
             self.progressBar.setValue(75)
             self.step = 3
@@ -236,14 +238,15 @@ class Ui_MainWindow(object):
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
 "<p align=\"center\" style"
                         "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\"> replace the New Tag to finish the copy</span></p></body></html>", None))
-
+            self.StartBtn.setEnabled(True)
 
     def OtoN(self):
+        self.StartBtn.setEnabled(False)
         output = subprocess.run(['nfc-mfclassic', 'W', 'a', 'carte-originale.dmp', 'carte-copie.dmp'], stdout=subprocess.PIPE)
         output = output.stdout.decode('utf-8')  
 
         print(output)
-        if "ERROR: No tag found." in output:
+        if "Error" in output or output == "":
             self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -254,6 +257,7 @@ class Ui_MainWindow(object):
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
 "<p align=\"center\" style"
                         "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">Error replace the Tag to copy the content and click continue</span></p></body></html>", None))
+            self.StartBtn.setEnabled(True)
         else :
             self.progressBar.setValue(100)
             self.StartBtn.setEnabled(False)
