@@ -20,6 +20,8 @@ from PyQt5.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QProgressBar, QPushButton,
     QSizePolicy, QTextBrowser, QWidget)
 
+
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -29,6 +31,7 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QSize(800, 480))
         MainWindow.setMaximumSize(QSize(800, 480))
 
+        self.step = 0
 
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -119,9 +122,22 @@ class Ui_MainWindow(object):
                         "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">To start click on start !</span></p></body></html>", None))
     # retranslateUi
 
+    def Start(self):
+        if self.step == 0:
+            self.Start()
+        else if self.step == 1:
+            self.dumpEmpty()
+        else if self.step == 2:
+            self.dumpTag
+        else if self.step == 3:
+            self.OtoN()
+        
+
+
     def checkConnected(self):
                 
         output = os.popen("nfc-list").read()
+        self.step = 0
         
         if "No NFC device found." in output:
             self.DisconnectedText.show()
@@ -147,7 +163,8 @@ class Ui_MainWindow(object):
 "<p align=\"center\" style"
                         "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">Place the New Tag to copy the uid and click continue</span></p></body></html>", None))
         self.StartBtn.setText(QCoreApplication.translate("MainWindow", u"Continue", None))
-        self.StartBtn.clicked.connect(self.dumpEmpty)
+        self.RestartBtn.setEnabled(False)
+        self.step = 1
         self.progressBar.setValue(10)
 
 
@@ -170,7 +187,7 @@ class Ui_MainWindow(object):
                         "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">Error replace the New Tag to copy the uid and click continue</span></p></body></html>", None))
         else :
             self.progressBar.setValue(45)
-            self.StartBtn.clicked.connect(self.dumpTag)
+            self.step = 2
             self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -200,7 +217,7 @@ class Ui_MainWindow(object):
                         "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">Error replace the Tag to copy the content and click continue</span></p></body></html>", None))
         else :
             self.progressBar.setValue(75)
-            self.StartBtn.clicked.connect(self.dumpTag)
+            self.step = 3
             self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -231,4 +248,5 @@ class Ui_MainWindow(object):
         else :
             self.progressBar.setValue(100)
             self.StartBtn.setEnabled(False)
+            self.RestartBtn.setEnabled(True)
         
