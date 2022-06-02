@@ -141,6 +141,7 @@ class Ui_MainWindow(object):
                 
         output = os.popen("nfc-list").read()
         self.step = 0
+        self.progressBar.setValue(0)
         
         if "No NFC device found." in output:
             self.DisconnectedText.show()
@@ -177,7 +178,7 @@ class Ui_MainWindow(object):
         output = os.popen("mfoc -P 500 -O carte-vierge.dmp").read()
         print(output)
         
-        if "No tag found." in output:
+        if "ERROR" in output:
             self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -207,7 +208,7 @@ class Ui_MainWindow(object):
         
         output = os.popen("mfoc -P 500 -O carte-copie.dmp").read()
         print(output)
-        if "No tag found." in output:
+        if "ERROR" in output:
             self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
