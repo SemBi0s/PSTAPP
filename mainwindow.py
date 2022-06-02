@@ -123,6 +123,7 @@ class Ui_MainWindow(object):
     # retranslateUi
 
     def Startfunc(self):
+        self.StartBtn.setEnabled(False)
         print(self.step)
         if self.step == 0:
             self.Start()
@@ -242,6 +243,7 @@ class Ui_MainWindow(object):
 
     def OtoN(self):
         self.StartBtn.setEnabled(False)
+
         output = subprocess.run(['nfc-mfclassic', 'W', 'a', 'carte-originale.dmp', 'carte-copie.dmp'], stdout=subprocess.PIPE)
         output = output.stdout.decode('utf-8')  
 
