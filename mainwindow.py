@@ -9,6 +9,7 @@
 ################################################################################
 
 import subprocess
+import time
 
 from PyQt5.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
@@ -124,6 +125,7 @@ class Ui_MainWindow(object):
 
     def Startfunc(self):
         self.StartBtn.setEnabled(False)
+        time.sleep(1)
         print(self.step)
         if self.step == 0:
             self.Start()
@@ -169,6 +171,7 @@ class Ui_MainWindow(object):
                         "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">Place the New Tag to copy the uid and click continue</span></p></body></html>", None))
         self.StartBtn.setText(QCoreApplication.translate("MainWindow", u"Continue", None))
         self.RestartBtn.setEnabled(False)
+        self.StartBtn.setEnabled(True)
         self.step = 1
         self.progressBar.setValue(10)
 
@@ -244,7 +247,7 @@ class Ui_MainWindow(object):
     def OtoN(self):
         self.StartBtn.setEnabled(False)
 
-        output = subprocess.run(['nfc-mfclassic', 'W', 'a', 'carte-originale.dmp', 'carte-copie.dmp'], stdout=subprocess.PIPE)
+        output = subprocess.run(['nfc-mfclassic', 'W', 'a', '~/PSTAPP/carte-originale.dmp', '~/PSTAPP/carte-copie.dmp'], stdout=subprocess.PIPE)
         output = output.stdout.decode('utf-8')  
 
         print(output)
