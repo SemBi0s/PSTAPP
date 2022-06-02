@@ -125,11 +125,11 @@ class Ui_MainWindow(object):
     def Start(self):
         if self.step == 0:
             self.Start()
-        else if self.step == 1:
+        elif self.step == 1:
             self.dumpEmpty()
-        else if self.step == 2:
+        elif self.step == 2:
             self.dumpTag
-        else if self.step == 3:
+        elif self.step == 3:
             self.OtoN()
         
 
