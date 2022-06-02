@@ -32,10 +32,13 @@ class Ui_MainWindow(object):
 
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
+       
         self.StartBtn = QPushButton(self.centralwidget)
         self.StartBtn.setObjectName(u"StartBtn")
         self.StartBtn.setGeometry(QRect(210, 50, 381, 291))
         self.StartBtn.setLayoutDirection(Qt.LeftToRight)
+        self.StartBtn.clicked.connect(self.Start)
+      
         self.ConnectedText = QTextBrowser(self.centralwidget)
         self.ConnectedText.setObjectName(u"ConnectedText")
         self.ConnectedText.setEnabled(False)
@@ -43,6 +46,7 @@ class Ui_MainWindow(object):
         self.ConnectedText.setMouseTracking(False)
         self.ConnectedText.setLayoutDirection(Qt.LeftToRight)
         self.ConnectedText.setAutoFillBackground(True)
+        
         self.DisconnectedText = QTextBrowser(self.centralwidget)
         self.DisconnectedText.setObjectName(u"DisconnectedText")
         self.DisconnectedText.setEnabled(False)
@@ -50,21 +54,33 @@ class Ui_MainWindow(object):
         self.DisconnectedText.setMouseTracking(False)
         self.DisconnectedText.setLayoutDirection(Qt.LeftToRight)
         self.DisconnectedText.setAutoFillBackground(True)
+      
         self.progressBar = QProgressBar(self.centralwidget)
         self.progressBar.setObjectName(u"progressBar")
         self.progressBar.setGeometry(QRect(160, 370, 461, 21))
         self.progressBar.setMaximumSize(QSize(800, 480))
         self.progressBar.setLayoutDirection(Qt.LeftToRight)
         self.progressBar.setValue(0)
+      
         self.CloseBtn = QPushButton(self.centralwidget)
         self.CloseBtn.setObjectName(u"CloseBtn")
         self.CloseBtn.setGeometry(QRect(760, 10, 31, 31))
         self.CloseBtn.setLayoutDirection(Qt.LeftToRight)
+       
         self.RestartBtn = QPushButton(self.centralwidget)
         self.RestartBtn.setObjectName(u"RestartBtn")
         self.RestartBtn.setGeometry(QRect(10, 10, 31, 31))
         self.RestartBtn.setLayoutDirection(Qt.LeftToRight)
         self.RestartBtn.clicked.connect(self.checkConnected)
+
+        self.InfoText = QTextBrowser(self.centralwidget)
+        self.InfoText.setObjectName(u"InfoText")
+        self.InfoText.setEnabled(False)
+        self.InfoText.setGeometry(QRect(0, 120, 201, 171))
+        self.InfoText.setMouseTracking(False)
+        self.InfoText.setLayoutDirection(Qt.LeftToRight)
+        self.InfoText.setAutoFillBackground(True)
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -91,18 +107,128 @@ class Ui_MainWindow(object):
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:26pt; font-weight:700; color:#e01b24;\">DISCONNECTED</span></p></body></html>", None))
         self.CloseBtn.setText(QCoreApplication.translate("MainWindow", u"X", None))
         self.RestartBtn.setText(QCoreApplication.translate("MainWindow", u"\u21ba", None))
+        self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"</style></head><body style=\" font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
+"<p align=\"center\" style"
+                        "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">To start click on start !</span></p></body></html>", None))
     # retranslateUi
 
     def checkConnected(self):
                 
         output = os.popen("nfc-list").read()
-        print(output)
+        
         if "No NFC device found." in output:
             self.DisconnectedText.show()
             self.ConnectedText.hide()
-            self.StartBtn.setEnabled(False)
-            
+            self.InfoText.hide()
+            self.StartBtn.setEnabled(True)
         else:
             self.DisconnectedText.hide()
+            self.InfoText.show()
             self.ConnectedText.show()
             self.StartBtn.setEnabled(True)
+
+
+    def Start(self):
+        self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"</style></head><body style=\" font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
+"<p align=\"center\" style"
+                        "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">Place the New Tag to copy the uid and click continue</span></p></body></html>", None))
+        self.StartBtn.setText(QCoreApplication.translate("MainWindow", u"Continue", None))
+        self.StartBtn.clicked.connect(self.dumpEmpty)
+        self.progressBar.setValue(10)
+
+
+
+
+    def dumpEmpty(self):
+        output = os.popen("mfoc -P 500 -O carte-vierge.dmp").read()
+        print(output)
+        
+        if "ERROR: No tag found." in output:
+            self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"</style></head><body style=\" font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
+"<p align=\"center\" style"
+                        "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">Error replace the New Tag to copy the uid and click continue</span></p></body></html>", None))
+        else :
+            self.progressBar.setValue(45)
+            self.StartBtn.clicked.connect(self.dumpTag)
+            self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"</style></head><body style=\" font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
+"<p align=\"center\" style"
+                        "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">Place the Old Tag to copy the content and click continue</span></p></body></html>", None))
+
+    
+    def dumpTag(self):
+        
+        output = os.popen("mfoc -P 500 -O carte-copie.dmp").read()
+        print(output)
+        if "ERROR: No tag found." in output:
+            self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"</style></head><body style=\" font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
+"<p align=\"center\" style"
+                        "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">Error replace the Tag to copy the content and click continue</span></p></body></html>", None))
+        else :
+            self.progressBar.setValue(75)
+            self.StartBtn.clicked.connect(self.dumpTag)
+            self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"</style></head><body style=\" font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
+"<p align=\"center\" style"
+                        "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\"> replace the New Tag to finish the copy</span></p></body></html>", None))
+
+
+    def OtoN(self):
+
+        output = os.popen("nfc-mfclassic W a carte-originale.dmp carte-copie.dmp").read()
+        print(output)
+        if "ERROR: No tag found." in output:
+            self.InfoText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"</style></head><body style=\" font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#1a5fb4;\"><br /></p>\n"
+"<p align=\"center\" style"
+                        "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#1a5fb4;\">Error replace the Tag to copy the content and click continue</span></p></body></html>", None))
+        else :
+            self.progressBar.setValue(100)
+            self.StartBtn.setEnabled(False)
+        
